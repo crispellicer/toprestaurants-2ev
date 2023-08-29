@@ -13,30 +13,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.svalero.toprestaurants.R;
+import com.svalero.toprestaurants.contract.restaurants.RestaurantDetailsContract;
 import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Restaurant;
+import com.svalero.toprestaurants.presenter.restaurants.RestaurantDetailsPresenter;
 
-public class RestaurantDetailsActivity extends AppCompatActivity {
+public class RestaurantDetailsView extends AppCompatActivity implements RestaurantDetailsContract.View {
+
+    private RestaurantDetailsPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_details);
 
+        presenter = new RestaurantDetailsPresenter(this);
+
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         if (name == null)
             return;
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        Restaurant restaurant = db.restaurantDao().getByName(name);
-        Toast.makeText(this, getString(R.string.restaurant) + " " + restaurant.getName(), Toast.LENGTH_LONG).show();
+        presenter.loadRestaurant(name);
+        //Toast.makeText(this, getString(R.string.restaurant) + " " + restaurant.getName(), Toast.LENGTH_LONG).show();
 
-        fillData(restaurant);
     }
 
-    private void fillData(Restaurant restaurant) {
+    public void goBackButton(View view) {
+        onBackPressed();
+    }
+
+    @Override
+    public void showRestaurant(Restaurant restaurant) {
         TextView tvName = findViewById(R.id.tv_restaurant_name_details);
         TextView tvType = findViewById(R.id.tv_restaurant_type_details);
         TextView tvTimetable = findViewById(R.id.tv_restaurant_timetable_details);
@@ -50,9 +58,5 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         tvReservePrice.setText(String.valueOf(restaurant.getReservePrice()));
         checkVeganMenu.setChecked(restaurant.isVeganMenu());
         tvWebsite.setText(restaurant.getWebsite());
-    }
-
-    public void goBackButton(View view) {
-        onBackPressed();
     }
 }

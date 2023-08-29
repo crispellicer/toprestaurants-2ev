@@ -1,4 +1,4 @@
-package com.svalero.toprestaurants.model;
+package com.svalero.toprestaurants.model.restaurants;
 
 import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
 
@@ -6,33 +6,34 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.svalero.toprestaurants.contract.CustomersListContract;
+import com.svalero.toprestaurants.contract.restaurants.RestaurantsListContract;
 import com.svalero.toprestaurants.db.AppDatabase;
-import com.svalero.toprestaurants.domain.Customer;
+import com.svalero.toprestaurants.domain.Restaurant;
 
 import java.util.List;
 
-public class CustomersListModel implements CustomersListContract.Model {
+public class RestaurantsListModel implements RestaurantsListContract.Model {
 
     private Context context;
 
-    public CustomersListModel(Context context) {
+    public RestaurantsListModel(Context context) {
         this.context = context;
-    }
-    @Override
-    public List<Customer> loadAllCustomers() {
-        final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        return db.customerDao().getAll();
     }
 
     @Override
-    public List<Customer> loadCustomersByName(String name) {
+    public List<Restaurant> loadAllRestaurants() {
+        final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
+                .allowMainThreadQueries().build();
+        return db.restaurantDao().getAll();
+    }
+
+    @Override
+    public List<Restaurant> loadRestaurantsByName(String name) {
         return null;
     }
 
     @Override
-    public boolean deleteCustomer(String name) {
+    public boolean deleteRestaurant(String name) {
         return false;
     }
 }

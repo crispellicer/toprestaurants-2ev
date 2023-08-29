@@ -13,9 +13,9 @@ import android.view.View;
 
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.adapter.CustomerAdapter;
-import com.svalero.toprestaurants.contract.CustomersListContract;
+import com.svalero.toprestaurants.contract.customers.CustomersListContract;
 import com.svalero.toprestaurants.domain.Customer;
-import com.svalero.toprestaurants.presenter.CustomersListPresenter;
+import com.svalero.toprestaurants.presenter.customers.CustomersListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class CustomersListView extends AppCompatActivity implements CustomersLis
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.register_customer) {
-            Intent intent = new Intent(this, RegisterCustomerActivity.class);
+            Intent intent = new Intent(this, RegisterCustomerView.class);
             startActivity(intent);
             return true;
         }

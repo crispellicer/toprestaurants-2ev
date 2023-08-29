@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.svalero.toprestaurants.view.customers.CustomerDetailsActivity;
+import com.svalero.toprestaurants.view.customers.CustomerDetailsView;
 import com.svalero.toprestaurants.view.customers.ModifyCustomerActivity;
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.db.AppDatabase;
@@ -78,7 +78,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     private void seeDetails(int position) {
         Customer customer = customersList.get(position);
 
-        Intent intent = new Intent(context, CustomerDetailsActivity.class);
+        Intent intent = new Intent(context, CustomerDetailsView.class);
         intent.putExtra("name", customer.getName());
         context.startActivity(intent);
     }

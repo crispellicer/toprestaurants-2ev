@@ -1,8 +1,8 @@
-package com.svalero.toprestaurants.presenter;
+package com.svalero.toprestaurants.presenter.customers;
 
-import com.svalero.toprestaurants.contract.CustomersListContract;
+import com.svalero.toprestaurants.contract.customers.CustomersListContract;
 import com.svalero.toprestaurants.domain.Customer;
-import com.svalero.toprestaurants.model.CustomersListModel;
+import com.svalero.toprestaurants.model.customers.CustomersListModel;
 import com.svalero.toprestaurants.view.customers.CustomersListView;
 
 import java.util.List;

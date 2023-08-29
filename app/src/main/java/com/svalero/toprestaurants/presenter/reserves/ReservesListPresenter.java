@@ -1,8 +1,8 @@
-package com.svalero.toprestaurants.presenter;
+package com.svalero.toprestaurants.presenter.reserves;
 
-import com.svalero.toprestaurants.contract.ReservesListContract;
+import com.svalero.toprestaurants.contract.reserves.ReservesListContract;
 import com.svalero.toprestaurants.domain.Reserve;
-import com.svalero.toprestaurants.model.ReservesListModel;
+import com.svalero.toprestaurants.model.reserves.ReservesListModel;
 import com.svalero.toprestaurants.view.reserves.ReservesListView;
 
 import java.util.List;

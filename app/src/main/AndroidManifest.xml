@@ -41,22 +41,22 @@
             android:name=".view.restaurants.ModifyRestaurantActivity"
             android:exported="false" />
         <activity
-            android:name=".view.reserves.ReserveDetailsActivity"
+            android:name=".view.reserves.ReserveDetailsView"
             android:exported="false" />
         <activity
-            android:name=".view.reserves.RegisterReserveActivity"
+            android:name=".view.reserves.RegisterReserveView"
             android:exported="false" />
         <activity
-            android:name=".view.customers.CustomerDetailsActivity"
+            android:name=".view.customers.CustomerDetailsView"
             android:exported="false" />
         <activity
-            android:name=".view.customers.RegisterCustomerActivity"
+            android:name=".view.customers.RegisterCustomerView"
             android:exported="false" />
         <activity
-            android:name=".view.restaurants.RegisterRestaurantActivity"
+            android:name=".view.restaurants.RegisterRestaurantView"
             android:exported="false" />
         <activity
-            android:name=".view.restaurants.RestaurantDetailsActivity"
+            android:name=".view.restaurants.RestaurantDetailsView"
             android:exported="false" />
         <activity
             android:name=".view.reserves.ReservesListView"

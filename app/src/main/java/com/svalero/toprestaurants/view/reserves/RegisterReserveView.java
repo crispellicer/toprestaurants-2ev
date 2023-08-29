@@ -17,24 +17,30 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.svalero.toprestaurants.R;
+import com.svalero.toprestaurants.contract.reserves.RegisterReserveContract;
 import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Customer;
 import com.svalero.toprestaurants.domain.Reserve;
 import com.svalero.toprestaurants.domain.Restaurant;
+import com.svalero.toprestaurants.presenter.reserves.RegisterReservePresenter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RegisterReserveActivity extends AppCompatActivity {
+public class RegisterReserveView extends AppCompatActivity implements RegisterReserveContract.View {
 
     private long customerId;
     private long restaurantId;
     private List<Restaurant> restaurants;
     private List<Customer> customers;
+    private RegisterReservePresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_reserve);
+
+        presenter = new RegisterReservePresenter(this);
 
         final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
                 .allowMainThreadQueries().build();
@@ -88,26 +94,33 @@ public class RegisterReserveActivity extends AppCompatActivity {
         boolean allergic = checkAllergic.isChecked();
 
         Reserve reserve = new Reserve(customerId, restaurantId, people, tables, reserveDate, isPaid, allergic);
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        try {
-            db.reserveDao().insert(reserve);
+        presenter.registerReserve(reserve);
 
-            Toast.makeText(this, R.string.reserve_register, Toast.LENGTH_LONG).show();
-            etPeople.setText("");
-            etTables.setText("");
-            etReserveDate.setText("");
-            checkPaid.setChecked(false);
-            checkAllergic.setChecked(false);
-            etPeople.requestFocus();
-        } catch (SQLiteConstraintException sce) {
-            //sce.getMessage();
-            //Toast.makeText(this, "An error has occurred", Toast.LENGTH_LONG).show();
-            Snackbar.make(customerSpinner, R.string.error_message, BaseTransientBottomBar.LENGTH_LONG).show();
-        }
     }
 
     public void goBackButton(View view) {
         onBackPressed();
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+        Snackbar.make(((EditText) findViewById(R.id.edit_text_reserve_people)), errorMessage,
+                BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(((EditText) findViewById(R.id.edit_text_reserve_people)), message,
+                BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void resetForm() {
+        ((EditText) findViewById(R.id.edit_text_reserve_people)).setText("");
+        ((EditText) findViewById(R.id.edit_text_reserve_tables)).setText("");
+        ((EditText) findViewById(R.id.edit_text_reserve_date)).setText("");
+        ((CheckBox) findViewById(R.id.check_box_paid)).setChecked(false);
+        ((CheckBox) findViewById(R.id.check_box_allergic)).setChecked(false);
+        ((EditText) findViewById(R.id.edit_text_reserve_people)).requestFocus();
     }
 }

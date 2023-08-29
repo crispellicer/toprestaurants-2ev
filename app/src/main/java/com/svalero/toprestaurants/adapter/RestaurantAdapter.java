@@ -16,7 +16,7 @@ import androidx.room.Room;
 
 import com.svalero.toprestaurants.view.restaurants.ModifyRestaurantActivity;
 import com.svalero.toprestaurants.R;
-import com.svalero.toprestaurants.view.restaurants.RestaurantDetailsActivity;
+import com.svalero.toprestaurants.view.restaurants.RestaurantDetailsView;
 import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Restaurant;
 
@@ -78,7 +78,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     private void seeDetails(int position) {
         Restaurant restaurant = restaurantsList.get(position);
 
-        Intent intent = new Intent(context, RestaurantDetailsActivity.class);
+        Intent intent = new Intent(context, RestaurantDetailsView.class);
         intent.putExtra("name", restaurant.getName());
         context.startActivity(intent);
     }

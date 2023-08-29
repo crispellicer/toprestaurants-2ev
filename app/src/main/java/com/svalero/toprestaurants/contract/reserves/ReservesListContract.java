@@ -1,4 +1,4 @@
-package com.svalero.toprestaurants.contract;
+package com.svalero.toprestaurants.contract.reserves;
 
 import com.svalero.toprestaurants.domain.Reserve;
 
@@ -8,7 +8,6 @@ public interface ReservesListContract {
 
     interface Model {
         List<Reserve> loadAllReserves();
-        List<Reserve> loadReservesByName(String name);
         boolean deleteReserve(String name);
     }
 

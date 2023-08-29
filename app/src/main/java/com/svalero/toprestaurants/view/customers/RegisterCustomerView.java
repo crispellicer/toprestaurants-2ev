@@ -19,20 +19,27 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 import com.svalero.toprestaurants.R;
+import com.svalero.toprestaurants.contract.customers.RegisterCustomerContract;
 import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Customer;
+import com.svalero.toprestaurants.presenter.customers.RegisterCustomerPresenter;
 
-public class RegisterCustomerActivity extends AppCompatActivity {
+public class RegisterCustomerView extends AppCompatActivity implements RegisterCustomerContract.View {
 
     private int SELECT_PICTURE_RESULT = 1;
     private int REQUEST_IMAGE_CAPTURE = 2;
+    private RegisterCustomerPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_customer);
+
+        presenter = new RegisterCustomerPresenter(this);
     }
 
     public void saveButton(View view) {
@@ -49,17 +56,8 @@ public class RegisterCustomerActivity extends AppCompatActivity {
         boolean vip = checkVip.isChecked();
 
         Customer customer = new Customer(name, surname, telephone, birthDate, vip);
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        db.customerDao().insert(customer);
+        presenter.registerCustomer(customer);
 
-        Toast.makeText(this, R.string.customer_register, Toast.LENGTH_LONG).show();
-        etName.setText("");
-        etSurname.setText("");
-        etTelephone.setText("");
-        etBirthDate.setText("");
-        checkVip.setChecked(false);
-        etName.requestFocus();
     }
 
     public void selectPicture(View view) {
@@ -106,5 +104,27 @@ public class RegisterCustomerActivity extends AppCompatActivity {
 
     public void goBackButton(View view) {
         onBackPressed();
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+        Snackbar.make(((EditText) findViewById(R.id.edit_text_customer_name)), errorMessage,
+                BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(((EditText) findViewById(R.id.edit_text_customer_name)), message,
+                BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void resetForm() {
+        ((EditText) findViewById(R.id.edit_text_customer_name)).setText("");
+        ((EditText) findViewById(R.id.edit_text_customer_surname)).setText("");
+        ((EditText) findViewById(R.id.edit_text_customer_telephone)).setText("");
+        ((EditText) findViewById(R.id.edit_text_customer_birthdate)).setText("");
+        ((CheckBox) findViewById(R.id.check_box_vip)).setChecked(false);
+        ((EditText) findViewById(R.id.edit_text_customer_name)).requestFocus();
     }
 }

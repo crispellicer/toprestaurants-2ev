@@ -1,12 +1,9 @@
 package com.svalero.toprestaurants.view.reserves;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,14 +13,9 @@ import android.view.View;
 
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.adapter.ReserveAdapter;
-import com.svalero.toprestaurants.adapter.RestaurantAdapter;
-import com.svalero.toprestaurants.contract.ReservesListContract;
-import com.svalero.toprestaurants.contract.RestaurantsListContract;
-import com.svalero.toprestaurants.db.AppDatabase;
+import com.svalero.toprestaurants.contract.reserves.ReservesListContract;
 import com.svalero.toprestaurants.domain.Reserve;
-import com.svalero.toprestaurants.domain.Restaurant;
-import com.svalero.toprestaurants.presenter.ReservesListPresenter;
-import com.svalero.toprestaurants.presenter.RestaurantsListPresenter;
+import com.svalero.toprestaurants.presenter.reserves.ReservesListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +62,7 @@ public class ReservesListView extends AppCompatActivity implements ReservesListC
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.register_reserve) {
-            Intent intent = new Intent(this, RegisterReserveActivity.class);
+            Intent intent = new Intent(this, RegisterReserveView.class);
             startActivity(intent);
             return true;
         }

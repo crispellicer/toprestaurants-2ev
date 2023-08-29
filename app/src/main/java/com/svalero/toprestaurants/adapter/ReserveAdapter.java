@@ -16,7 +16,7 @@ import androidx.room.Room;
 
 import com.svalero.toprestaurants.view.reserves.ModifyReserveActivity;
 import com.svalero.toprestaurants.R;
-import com.svalero.toprestaurants.view.reserves.ReserveDetailsActivity;
+import com.svalero.toprestaurants.view.reserves.ReserveDetailsView;
 import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Reserve;
 
@@ -78,7 +78,7 @@ public class ReserveAdapter extends RecyclerView.Adapter<ReserveAdapter.ReserveH
     private void seeDetails(int position) {
         Reserve reserve = reservesList.get(position);
 
-        Intent intent = new Intent(context, ReserveDetailsActivity.class);
+        Intent intent = new Intent(context, ReserveDetailsView.class);
         intent.putExtra("id", reserve.getId());
         context.startActivity(intent);
     }

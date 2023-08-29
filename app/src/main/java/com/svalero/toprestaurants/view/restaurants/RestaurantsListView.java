@@ -13,9 +13,9 @@ import android.view.View;
 
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.adapter.RestaurantAdapter;
-import com.svalero.toprestaurants.contract.RestaurantsListContract;
+import com.svalero.toprestaurants.contract.restaurants.RestaurantsListContract;
 import com.svalero.toprestaurants.domain.Restaurant;
-import com.svalero.toprestaurants.presenter.RestaurantsListPresenter;
+import com.svalero.toprestaurants.presenter.restaurants.RestaurantsListPresenter;
 import com.svalero.toprestaurants.view.MapsActivity;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class RestaurantsListView extends AppCompatActivity implements Restaurant
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.register_restaurant) {
-            Intent intent = new Intent(this, RegisterRestaurantActivity.class);
+            Intent intent = new Intent(this, RegisterRestaurantView.class);
             startActivity(intent);
             return true;
         } else if (item.getItemId() == R.id.view_map) {

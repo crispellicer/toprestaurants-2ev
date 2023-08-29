@@ -13,34 +13,37 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.svalero.toprestaurants.R;
+import com.svalero.toprestaurants.contract.reserves.ReserveDetailsContract;
 import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Customer;
 import com.svalero.toprestaurants.domain.Reserve;
 import com.svalero.toprestaurants.domain.Restaurant;
+import com.svalero.toprestaurants.presenter.reserves.ReserveDetailsPresenter;
 
-public class ReserveDetailsActivity extends AppCompatActivity {
+public class ReserveDetailsView extends AppCompatActivity implements ReserveDetailsContract.View {
+
+    private ReserveDetailsPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve_details);
 
+        presenter = new ReserveDetailsPresenter(this);
+
         Intent intent = getIntent();
-       long id = intent.getLongExtra("id",0);
+        long id = intent.getLongExtra("id", 0);
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        Reserve reserve = db.reserveDao().getById(id);
-         Toast.makeText(this, getString(R.string.reserve) + " " + reserve.getId(), Toast.LENGTH_LONG).show();
-
-        Customer customer = db.customerDao().getById(reserve.getCustomerId());
-
-        Restaurant restaurant = db.restaurantDao().getById(reserve.getRestaurantId());
-
-        fillData(reserve, customer, restaurant);
+        presenter.loadReserve(id);
+        //Toast.makeText(this, getString(R.string.reserve) + " " + reserve.getId(), Toast.LENGTH_LONG).show();
     }
 
-    private void fillData(Reserve reserve, Customer customer, Restaurant restaurant) {
+    public void goBackButton(View view) {
+        onBackPressed();
+    }
+
+    @Override
+    public void showReserve(Reserve reserve, Customer customer, Restaurant restaurant) {
         TextView tvCustomerName = findViewById(R.id.tv_reserve_customername_details);
         TextView tvRestaurantName = findViewById(R.id.tv_reserve_restaurantname_details);
         TextView tvPeople = findViewById(R.id.tv_reserve_people_details);
@@ -56,9 +59,5 @@ public class ReserveDetailsActivity extends AppCompatActivity {
         tvReserveDate.setText(reserve.getReserveDate());
         checkIsPaid.setChecked(reserve.isPaid());
         checkAllergic.setChecked(reserve.isAllergic());
-    }
-
-    public void goBackButton(View view) {
-        onBackPressed();
     }
 }

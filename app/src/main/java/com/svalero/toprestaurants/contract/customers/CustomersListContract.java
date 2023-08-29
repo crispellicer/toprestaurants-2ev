@@ -1,4 +1,4 @@
-package com.svalero.toprestaurants.contract;
+package com.svalero.toprestaurants.contract.customers;
 
 import com.svalero.toprestaurants.domain.Customer;
 
