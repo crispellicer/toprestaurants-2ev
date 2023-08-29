@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.customers.ModifyCustomerActivity">
+    tools:context=".view.customers.ModifyCustomerView">
 
     <LinearLayout
         android:id="@+id/linearLayout3"

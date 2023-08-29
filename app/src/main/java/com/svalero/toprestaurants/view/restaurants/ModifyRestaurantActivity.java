@@ -1,7 +1,5 @@
 package com.svalero.toprestaurants.view.restaurants;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -16,7 +14,6 @@ import android.widget.EditText;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.svalero.toprestaurants.R;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Restaurant;
 
 public class ModifyRestaurantActivity extends AppCompatActivity {
@@ -33,12 +30,12 @@ public class ModifyRestaurantActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        Restaurant restaurant = db.restaurantDao().getById(id);
-        longitude = restaurant.getLongitude();
-        latitude = restaurant.getLatitude();
-        fillData(restaurant);
+        //final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
+          //      .allowMainThreadQueries().build();
+        //Restaurant restaurant = db.restaurantDao().getById(id);
+        //longitude = restaurant.getLongitude();
+        //latitude = restaurant.getLatitude();
+        //fillData(restaurant);
     }
 
     public void modifyRestaurantButton(View view) {
@@ -59,8 +56,8 @@ public class ModifyRestaurantActivity extends AppCompatActivity {
 
         Restaurant restaurant = new Restaurant(id, name, timetable, type, reservePrice, veganMenu, website, longitude, latitude);
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
+        //final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
+          //      .allowMainThreadQueries().build();
 
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -68,7 +65,7 @@ public class ModifyRestaurantActivity extends AppCompatActivity {
                     .setTitle(R.string.modify_restaurant)
                     .setPositiveButton(R.string.yes, (dialog, id) -> {
 
-                        db.restaurantDao().update(restaurant);
+                        //db.restaurantDao().update(restaurant);
 
                         Intent intent = new Intent(this, RestaurantsListView.class);
                         intent.putExtra("id", restaurant.getId());

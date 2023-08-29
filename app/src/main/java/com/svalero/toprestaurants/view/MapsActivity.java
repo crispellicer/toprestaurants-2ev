@@ -1,9 +1,6 @@
 package com.svalero.toprestaurants.view;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -18,7 +15,6 @@ import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManagerKt;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 import com.svalero.toprestaurants.R;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Restaurant;
 
 import java.util.List;
@@ -36,10 +32,10 @@ public class MapsActivity extends AppCompatActivity {
         mapView = findViewById(R.id.mapView);
         initializePointManager();
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        List<Restaurant> restaurants = db.restaurantDao().getAll();
-        addRestaurantsToMap(restaurants);
+        //final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
+          //      .allowMainThreadQueries().build();
+        //List<Restaurant> restaurants = db.restaurantDao().getAll();
+        //addRestaurantsToMap(restaurants);
     }
 
     private void addRestaurantsToMap(List<Restaurant> restaurants) {

@@ -1,11 +1,7 @@
 package com.svalero.toprestaurants.view.restaurants;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
-import android.database.sqlite.SQLiteConstraintException;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +23,6 @@ import com.mapbox.maps.plugin.gestures.GesturesPlugin;
 import com.mapbox.maps.plugin.gestures.GesturesUtils;
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.contract.restaurants.RegisterRestaurantContract;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Restaurant;
 import com.svalero.toprestaurants.presenter.restaurants.RegisterRestaurantPresenter;
 

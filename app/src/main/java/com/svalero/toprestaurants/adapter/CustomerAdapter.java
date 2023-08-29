@@ -1,6 +1,5 @@
 package com.svalero.toprestaurants.adapter;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,9 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.svalero.toprestaurants.view.customers.CustomerDetailsView;
-import com.svalero.toprestaurants.view.customers.ModifyCustomerActivity;
+import com.svalero.toprestaurants.view.customers.ModifyCustomerView;
 import com.svalero.toprestaurants.R;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Customer;
 
 import java.util.List;
@@ -86,7 +84,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     private void modifyCustomer(int position){
         Customer customer = customersList.get(position);
 
-        Intent intent = new Intent(context, ModifyCustomerActivity.class);
+        Intent intent = new Intent(context, ModifyCustomerView.class);
         intent.putExtra("id", customer.getId());
         context.startActivity(intent);
     }
@@ -96,10 +94,10 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         builder.setMessage(R.string.sure)
                 .setTitle(R.string.delete_customer)
                 .setPositiveButton(R.string.yes, (dialog, id) -> {
-                    final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
-                            .allowMainThreadQueries().build();
-                    Customer customer = customersList.get(position);
-                    db.customerDao().delete(customer);
+                    //final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
+                      //      .allowMainThreadQueries().build();
+                    //Customer customer = customersList.get(position);
+                    //db.customerDao().delete(customer);
 
                     customersList.remove(position);
                     notifyItemRemoved(position);

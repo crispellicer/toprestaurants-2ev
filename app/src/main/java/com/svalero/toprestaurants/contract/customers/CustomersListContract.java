@@ -7,7 +7,11 @@ import java.util.List;
 public interface CustomersListContract {
 
     interface Model {
-        List<Customer> loadAllCustomers();
+        interface OnLoadCustomersListener {
+            void onLoadCustomersSuccess(List<Customer> customers);
+            void onLoadCustomersError(String message);
+        }
+        void loadAllCustomers(OnLoadCustomersListener listener);
         List<Customer> loadCustomersByName(String name);
         boolean deleteCustomer(String name);
     }

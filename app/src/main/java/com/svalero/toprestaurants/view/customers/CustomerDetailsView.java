@@ -1,20 +1,16 @@
 package com.svalero.toprestaurants.view.customers;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.contract.customers.CustomerDetailsContract;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Customer;
 import com.svalero.toprestaurants.presenter.customers.CustomerDetailsPresenter;
 

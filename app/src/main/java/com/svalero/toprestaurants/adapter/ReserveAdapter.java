@@ -1,7 +1,5 @@
 package com.svalero.toprestaurants.adapter;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +15,6 @@ import androidx.room.Room;
 import com.svalero.toprestaurants.view.reserves.ModifyReserveActivity;
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.view.reserves.ReserveDetailsView;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Reserve;
 
 import java.util.List;
@@ -96,10 +93,10 @@ public class ReserveAdapter extends RecyclerView.Adapter<ReserveAdapter.ReserveH
         builder.setMessage(R.string.sure)
                 .setTitle(R.string.delete_reserve)
                 .setPositiveButton(R.string.yes, (dialog, id) -> {
-                    final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
-                            .allowMainThreadQueries().build();
-                    Reserve reserve = reservesList.get(position);
-                    db.reserveDao().delete(reserve);
+                    //final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
+                      //      .allowMainThreadQueries().build();
+                    //Reserve reserve = reservesList.get(position);
+                    //db.reserveDao().delete(reserve);
 
                     reservesList.remove(position);
                     notifyItemRemoved(position);

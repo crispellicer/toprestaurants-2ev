@@ -1,5 +1,6 @@
 package com.svalero.toprestaurants.presenter.restaurants;
 
+import com.svalero.toprestaurants.contract.customers.CustomersListContract;
 import com.svalero.toprestaurants.contract.restaurants.RestaurantsListContract;
 import com.svalero.toprestaurants.domain.Restaurant;
 import com.svalero.toprestaurants.model.restaurants.RestaurantsListModel;
@@ -7,7 +8,8 @@ import com.svalero.toprestaurants.view.restaurants.RestaurantsListView;
 
 import java.util.List;
 
-public class RestaurantsListPresenter implements RestaurantsListContract.Presenter {
+public class RestaurantsListPresenter implements RestaurantsListContract.Presenter,
+        RestaurantsListContract.Model.OnLoadRestaurantsListener{
 
     private RestaurantsListModel model;
     private RestaurantsListView view;
@@ -20,8 +22,7 @@ public class RestaurantsListPresenter implements RestaurantsListContract.Present
 
     @Override
     public void loadAllRestaurants() {
-        List<Restaurant> restaurants = model.loadAllRestaurants();
-        view.showRestaurants(restaurants);
+        model.loadAllRestaurants(this);
     }
 
     @Override
@@ -32,5 +33,15 @@ public class RestaurantsListPresenter implements RestaurantsListContract.Present
     @Override
     public void deleteRestaurant(String name) {
 
+    }
+
+    @Override
+    public void onLoadRestaurantsSuccess(List<Restaurant> restaurants) {
+        view.showRestaurants(restaurants);
+    }
+
+    @Override
+    public void onLoadRestaurantsError(String message) {
+        view.showMessage(message);
     }
 }

@@ -1,16 +1,19 @@
 package com.svalero.toprestaurants.model.restaurants;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
-
 import android.content.Context;
+import android.util.Log;
 
-import androidx.room.Room;
 
+import com.svalero.toprestaurants.api.TopRestaurantsApi;
+import com.svalero.toprestaurants.api.TopRestaurantsApiInterface;
 import com.svalero.toprestaurants.contract.restaurants.RestaurantsListContract;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Restaurant;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RestaurantsListModel implements RestaurantsListContract.Model {
 
@@ -20,11 +23,29 @@ public class RestaurantsListModel implements RestaurantsListContract.Model {
         this.context = context;
     }
 
+
     @Override
-    public List<Restaurant> loadAllRestaurants() {
-        final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        return db.restaurantDao().getAll();
+    public void loadAllRestaurants(OnLoadRestaurantsListener listener) {
+        TopRestaurantsApiInterface topRestaurantsApi = TopRestaurantsApi.buildInstance();
+        Call<List<Restaurant>> callRestaurants = topRestaurantsApi.getRestaurants();
+        Log.d("restaurants", "Llamada desde model");
+        callRestaurants.enqueue(new Callback<List<Restaurant>>() {
+            @Override
+            public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
+                Log.d("restaurants", "Llamada desde model ok");
+                List<Restaurant> restaurants = response.body();
+                listener.onLoadRestaurantsSuccess(restaurants);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Restaurant>> call, Throwable t) {
+                Log.d("restaurants", "Llamada desde model error");
+                t.printStackTrace();
+                String message = "Error invocando a la operación";
+                listener.onLoadRestaurantsError(message);
+            }
+        });
     }
 
     @Override

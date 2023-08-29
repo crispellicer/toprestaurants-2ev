@@ -1,7 +1,5 @@
 package com.svalero.toprestaurants.adapter;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,12 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.svalero.toprestaurants.view.restaurants.ModifyRestaurantActivity;
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.view.restaurants.RestaurantDetailsView;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Restaurant;
 
 import java.util.List;
@@ -96,10 +92,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         builder.setMessage(R.string.sure)
                 .setTitle(R.string.delete_restaurant)
                 .setPositiveButton(R.string.yes, (dialog, id) -> {
-                    final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
-                            .allowMainThreadQueries().build();
-                    Restaurant restaurant = restaurantsList.get(position);
-                    db.restaurantDao().delete(restaurant);
+                    //final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
+                      //      .allowMainThreadQueries().build();
+                    //Restaurant restaurant = restaurantsList.get(position);
+                    //db.restaurantDao().delete(restaurant);
 
                     restaurantsList.remove(position);
                     notifyItemRemoved(position);

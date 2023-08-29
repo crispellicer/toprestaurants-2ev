@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.adapter.RestaurantAdapter;
@@ -52,6 +54,7 @@ public class RestaurantsListView extends AppCompatActivity implements Restaurant
     protected void onResume() {
         super.onResume();
 
+        Log.d("restaurants", "Llamada desde view");
         presenter.loadAllRestaurants();
     }
 
@@ -88,6 +91,6 @@ public class RestaurantsListView extends AppCompatActivity implements Restaurant
 
     @Override
     public void showMessage(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

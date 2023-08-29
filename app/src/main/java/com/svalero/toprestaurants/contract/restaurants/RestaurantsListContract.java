@@ -1,5 +1,7 @@
 package com.svalero.toprestaurants.contract.restaurants;
 
+import com.svalero.toprestaurants.contract.customers.CustomersListContract;
+import com.svalero.toprestaurants.domain.Customer;
 import com.svalero.toprestaurants.domain.Restaurant;
 
 import java.util.List;
@@ -7,7 +9,11 @@ import java.util.List;
 public interface RestaurantsListContract {
 
     interface Model {
-        List<Restaurant> loadAllRestaurants();
+        interface OnLoadRestaurantsListener {
+            void onLoadRestaurantsSuccess(List<Restaurant> restaurants);
+            void onLoadRestaurantsError(String message);
+        }
+        void loadAllRestaurants(RestaurantsListContract.Model.OnLoadRestaurantsListener listener);
         List<Restaurant> loadRestaurantsByName(String name);
         boolean deleteRestaurant(String name);
     }

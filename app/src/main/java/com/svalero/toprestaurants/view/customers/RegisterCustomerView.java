@@ -1,11 +1,8 @@
 package com.svalero.toprestaurants.view.customers;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.room.Room;
 
 import android.Manifest;
 import android.content.Intent;
@@ -17,14 +14,12 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.contract.customers.RegisterCustomerContract;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Customer;
 import com.svalero.toprestaurants.presenter.customers.RegisterCustomerPresenter;
 

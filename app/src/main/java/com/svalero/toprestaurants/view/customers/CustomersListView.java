@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.adapter.CustomerAdapter;
@@ -84,6 +85,6 @@ public class CustomersListView extends AppCompatActivity implements CustomersLis
 
     @Override
     public void showMessage(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

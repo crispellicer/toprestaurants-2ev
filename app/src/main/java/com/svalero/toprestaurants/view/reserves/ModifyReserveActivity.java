@@ -1,7 +1,5 @@
 package com.svalero.toprestaurants.view.reserves;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -16,7 +14,6 @@ import android.widget.EditText;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.svalero.toprestaurants.R;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Reserve;
 
 public class ModifyReserveActivity extends AppCompatActivity {
@@ -34,12 +31,12 @@ public class ModifyReserveActivity extends AppCompatActivity {
         id = getIntent().getLongExtra("id",0);
 
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        Reserve reserve = db.reserveDao().getById(id);
-        customerId = reserve.getCustomerId();
-        restaurantId = reserve.getRestaurantId();
-        fillData(reserve);
+        //final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
+          //      .allowMainThreadQueries().build();
+        //Reserve reserve = db.reserveDao().getById(id);
+        //customerId = reserve.getCustomerId();
+        //restaurantId = reserve.getRestaurantId();
+        //fillData(reserve);
     }
 
     public void modifyReserveButton(View view) {
@@ -59,8 +56,8 @@ public class ModifyReserveActivity extends AppCompatActivity {
 
         Reserve reserve = new Reserve(id, customerId, restaurantId, people, tables, reserveDate, isPaid, allergic);
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
+        //final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
+          //      .allowMainThreadQueries().build();
 
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -68,7 +65,7 @@ public class ModifyReserveActivity extends AppCompatActivity {
                     .setTitle(R.string.modify_reserve)
                     .setPositiveButton(R.string.yes, (dialog, id) -> {
 
-                        db.reserveDao().update(reserve);
+                        //db.reserveDao().update(reserve);
 
                         Intent intent = new Intent(this, ReservesListView.class);
                         intent.putExtra("id", reserve.getId());

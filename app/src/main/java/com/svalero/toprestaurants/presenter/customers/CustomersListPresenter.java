@@ -7,7 +7,8 @@ import com.svalero.toprestaurants.view.customers.CustomersListView;
 
 import java.util.List;
 
-public class CustomersListPresenter implements CustomersListContract.Presenter {
+public class CustomersListPresenter implements CustomersListContract.Presenter,
+    CustomersListContract.Model.OnLoadCustomersListener{
 
     private CustomersListModel model;
     private CustomersListView view;
@@ -20,8 +21,7 @@ public class CustomersListPresenter implements CustomersListContract.Presenter {
 
     @Override
     public void loadAllCustomers() {
-        List<Customer> customers = model.loadAllCustomers();
-        view.showCustomers(customers);
+        model.loadAllCustomers(this);
     }
 
     @Override
@@ -32,5 +32,15 @@ public class CustomersListPresenter implements CustomersListContract.Presenter {
     @Override
     public void deleteCustomer(String name) {
 
+    }
+
+    @Override
+    public void onLoadCustomersSuccess(List<Customer> customers) {
+        view.showCustomers(customers);
+    }
+
+    @Override
+    public void onLoadCustomersError(String message) {
+        view.showMessage(message);
     }
 }

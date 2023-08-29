@@ -1,16 +1,19 @@
 package com.svalero.toprestaurants.model.customers;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
 
 import android.content.Context;
 
-import androidx.room.Room;
 
+import com.svalero.toprestaurants.api.TopRestaurantsApi;
+import com.svalero.toprestaurants.api.TopRestaurantsApiInterface;
 import com.svalero.toprestaurants.contract.customers.CustomersListContract;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Customer;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CustomersListModel implements CustomersListContract.Model {
 
@@ -19,11 +22,25 @@ public class CustomersListModel implements CustomersListContract.Model {
     public CustomersListModel(Context context) {
         this.context = context;
     }
+
     @Override
-    public List<Customer> loadAllCustomers() {
-        final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        return db.customerDao().getAll();
+    public void loadAllCustomers(OnLoadCustomersListener listener) {
+        TopRestaurantsApiInterface topRestaurantsApi = TopRestaurantsApi.buildInstance();
+        Call<List<Customer>> callCustomers = topRestaurantsApi.getCustomers();
+        callCustomers.enqueue(new Callback<List<Customer>>() {
+            @Override
+            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+                List<Customer> customers = response.body();
+                listener.onLoadCustomersSuccess(customers);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Customer>> call, Throwable t) {
+                String message = "Error invocando a la operación";
+                listener.onLoadCustomersError(message);
+            }
+        });
     }
 
     @Override

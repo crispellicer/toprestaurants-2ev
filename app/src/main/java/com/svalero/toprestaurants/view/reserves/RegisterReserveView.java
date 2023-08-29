@@ -1,24 +1,18 @@
 package com.svalero.toprestaurants.view.reserves;
 
-import static com.svalero.toprestaurants.db.Constants.DATABASE_NAME;
-
 import androidx.appcompat.app.AppCompatActivity;;
-import androidx.room.Room;
 
-import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.contract.reserves.RegisterReserveContract;
-import com.svalero.toprestaurants.db.AppDatabase;
 import com.svalero.toprestaurants.domain.Customer;
 import com.svalero.toprestaurants.domain.Reserve;
 import com.svalero.toprestaurants.domain.Restaurant;
@@ -42,10 +36,10 @@ public class RegisterReserveView extends AppCompatActivity implements RegisterRe
 
         presenter = new RegisterReservePresenter(this);
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        customers = db.customerDao().getAll();
-        restaurants = db.restaurantDao().getAll();
+        //final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
+          //      .allowMainThreadQueries().build();
+        //customers = db.customerDao().getAll();
+        //restaurants = db.restaurantDao().getAll();
 
         List<String> customerNames = customers.stream().map(Customer::getName).collect(Collectors.toList());
 
