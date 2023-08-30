@@ -1,12 +1,8 @@
 package com.svalero.toprestaurants.presenter.restaurants;
 
-import com.svalero.toprestaurants.contract.customers.ModifyCustomerContract;
 import com.svalero.toprestaurants.contract.restaurants.ModifyRestaurantContract;
-import com.svalero.toprestaurants.domain.Customer;
 import com.svalero.toprestaurants.domain.Restaurant;
-import com.svalero.toprestaurants.model.customers.ModifyCustomerModel;
 import com.svalero.toprestaurants.model.restaurants.ModifyRestaurantModel;
-import com.svalero.toprestaurants.view.customers.ModifyCustomerView;
 import com.svalero.toprestaurants.view.restaurants.ModifyRestaurantView;
 
 public class ModifyRestaurantPresenter implements ModifyRestaurantContract.Presenter,
