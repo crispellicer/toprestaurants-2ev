@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:backgroundTint="#1A0342"
             android:onClick="modifyRestaurantButton"
-            android:text="@string/save_button" />
+            android:text="@string/confirm_button" />
 
         <Button
             android:id="@+id/cancel_modify_restaurant_button"
@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:backgroundTint="#1A0342"
             android:onClick="goBackButton"
-            android:text="@string/return_button" />
+            android:text="@string/cancel_button" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,19 +52,19 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/edit_text_modify_restaurant_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/type"
-            android:inputType="textPersonName" />
-
-        <EditText
             android:id="@+id/edit_text_modify_restaurant_timetable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/timetable"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/edit_text_modify_restaurant_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/type"
             android:inputType="textPersonName" />
 
         <EditText

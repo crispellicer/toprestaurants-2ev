@@ -23,7 +23,8 @@ public class ModifyRestaurantPresenter implements ModifyRestaurantContract.Prese
 
     @Override
     public void onModifySuccess(Restaurant restaurant) {
-        view.showMessage("The restaurant has been successfully modified");
+        //view.showMessage("The restaurant has been successfully modified");
+        view.showMessage("Restaurant " + restaurant.getId() + " has been modified");
     }
 
     @Override

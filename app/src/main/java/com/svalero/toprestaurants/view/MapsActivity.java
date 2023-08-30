@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.mapbox.geojson.Point;
 import com.mapbox.maps.CameraOptions;
@@ -15,14 +16,18 @@ import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManagerKt;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 import com.svalero.toprestaurants.R;
+import com.svalero.toprestaurants.contract.restaurants.RestaurantsListContract;
 import com.svalero.toprestaurants.domain.Restaurant;
+import com.svalero.toprestaurants.presenter.restaurants.RestaurantsListPresenter;
 
 import java.util.List;
 
-public class MapsActivity extends AppCompatActivity {
+public class MapsActivity extends AppCompatActivity implements RestaurantsListContract.View {
 
     private MapView mapView;
     private PointAnnotationManager pointAnnotationManager;
+
+    private RestaurantsListPresenter restaurantsListPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +37,8 @@ public class MapsActivity extends AppCompatActivity {
         mapView = findViewById(R.id.mapView);
         initializePointManager();
 
-        //final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-          //      .allowMainThreadQueries().build();
-        //List<Restaurant> restaurants = db.restaurantDao().getAll();
-        //addRestaurantsToMap(restaurants);
+        restaurantsListPresenter = new RestaurantsListPresenter(this);
+        restaurantsListPresenter.loadAllRestaurants();
     }
 
     private void addRestaurantsToMap(List<Restaurant> restaurants) {
@@ -70,5 +73,15 @@ public class MapsActivity extends AppCompatActivity {
                 .bearing(-17.6)
                 .build();
         mapView.getMapboxMap().setCamera(cameraPosition);
+    }
+
+    @Override
+    public void showRestaurants(List<Restaurant> restaurants) {
+        addRestaurantsToMap(restaurants);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

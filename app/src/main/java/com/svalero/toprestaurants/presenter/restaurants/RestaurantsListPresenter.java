@@ -1,10 +1,9 @@
 package com.svalero.toprestaurants.presenter.restaurants;
 
-import com.svalero.toprestaurants.contract.customers.CustomersListContract;
 import com.svalero.toprestaurants.contract.restaurants.RestaurantsListContract;
 import com.svalero.toprestaurants.domain.Restaurant;
 import com.svalero.toprestaurants.model.restaurants.RestaurantsListModel;
-import com.svalero.toprestaurants.view.restaurants.RestaurantsListView;
+
 
 import java.util.List;
 
@@ -12,13 +11,13 @@ public class RestaurantsListPresenter implements RestaurantsListContract.Present
         RestaurantsListContract.Model.OnLoadRestaurantsListener{
 
     private RestaurantsListModel model;
-    private RestaurantsListView view;
+    private RestaurantsListContract.View view;
 
-    public RestaurantsListPresenter(RestaurantsListView view) {
+    public RestaurantsListPresenter(RestaurantsListContract.View view) {
         this.view = view;
-        this.model = new RestaurantsListModel(view.getApplicationContext());
-
+        this.model = new RestaurantsListModel();
     }
+
 
     @Override
     public void loadAllRestaurants() {

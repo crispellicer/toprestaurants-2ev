@@ -19,9 +19,9 @@ public class RestaurantsListModel implements RestaurantsListContract.Model {
 
     private Context context;
 
-    public RestaurantsListModel(Context context) {
-        this.context = context;
-    }
+//    public RestaurantsListModel(Context context) {
+//        this.context = context;
+//    }
 
 
     @Override

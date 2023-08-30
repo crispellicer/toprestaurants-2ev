@@ -81,7 +81,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
             restaurantName = view.findViewById(R.id.restaurant_name);
             restaurantType = view.findViewById(R.id.restaurant_type);
-            restaurantDetailsButton = view.findViewById(R.id.restaurant_details_button);
+            //restaurantDetailsButton = view.findViewById(R.id.restaurant_details_button);
             modifyRestaurantButton = view.findViewById(R.id.modify_restaurant_button);
             deleteRestaurantButton = view.findViewById(R.id.delete_restaurant_button);
 
