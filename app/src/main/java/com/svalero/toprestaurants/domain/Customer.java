@@ -1,23 +1,13 @@
 package com.svalero.toprestaurants.domain;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import java.io.Serializable;
 
-
-@Entity
-public class Customer {
-    @PrimaryKey(autoGenerate = true)
+public class Customer implements Serializable {
     private long id;
-    @ColumnInfo
     private String name;
-    @ColumnInfo
     private String surname;
-    @ColumnInfo
     private String telephone;
-    @ColumnInfo
     private String birthDate;
-    @ColumnInfo
     private boolean vip;
 
     public Customer(long id, String name, String surname, String telephone, String birthDate, boolean vip) {
@@ -43,9 +33,7 @@ public class Customer {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void setId(long id) {this.id = id;}
 
     public String getName() {return name;}
 

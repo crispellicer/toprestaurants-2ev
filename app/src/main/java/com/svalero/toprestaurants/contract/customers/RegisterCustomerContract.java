@@ -7,7 +7,11 @@ import java.util.List;
 public interface RegisterCustomerContract {
 
     interface Model {
-        boolean registerCustomer(Customer customer);
+        interface OnRegisterCustomerListener {
+            void onRegisterSuccess(Customer customer);
+            void onRegisterError(String message);
+        }
+        void registerCustomer(Customer customer, OnRegisterCustomerListener listener);
     }
 
     interface View {

@@ -5,11 +5,11 @@ import com.svalero.toprestaurants.domain.Customer;
 public interface ModifyCustomerContract {
 
     interface Model {
-        interface OnModifyUserListener {
+        interface OnModifyCustomerListener {
             void onModifySuccess(Customer customer);
             void onModifyError(String message);
         }
-        void modifyCustomer (long id, Customer customer, ModifyCustomerContract.Model.OnModifyUserListener listener);
+        void modifyCustomer (long id, Customer customer, ModifyCustomerContract.Model.OnModifyCustomerListener listener);
     }
 
     interface View {

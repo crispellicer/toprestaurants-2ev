@@ -5,7 +5,8 @@ import com.svalero.toprestaurants.domain.Restaurant;
 import com.svalero.toprestaurants.model.restaurants.RegisterRestaurantModel;
 import com.svalero.toprestaurants.view.restaurants.RegisterRestaurantView;
 
-public class RegisterRestaurantPresenter implements RegisterRestaurantContract.Presenter {
+public class RegisterRestaurantPresenter implements RegisterRestaurantContract.Presenter,
+        RegisterRestaurantContract.Model.OnRegisterRestaurantListener{
 
     private RegisterRestaurantModel model;
     private RegisterRestaurantView view;
@@ -17,12 +18,16 @@ public class RegisterRestaurantPresenter implements RegisterRestaurantContract.P
 
     @Override
     public void registerRestaurant(Restaurant restaurant) {
-        boolean done = model.registerRestaurant(restaurant);
-        if (done) {
-            view.showMessage("Restaurante registrado correctamente");
-            view.resetForm();
-        } else {
-            view.showError("Se ha producido un error al registrar el restaurante. Comprueba que los datos son correctos");
-        }
+        model.registerRestaurant(restaurant, this);
+    }
+
+    @Override
+    public void onRegisterSuccess(Restaurant restaurant) {
+        view.showMessage("Restaurant " + restaurant.getId() + " has been registered");
+    }
+
+    @Override
+    public void onRegisterError(String message) {
+        view.showError("An error has occurred");
     }
 }

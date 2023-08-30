@@ -11,23 +11,29 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
-import com.svalero.toprestaurants.view.customers.CustomerDetailsView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+import com.svalero.toprestaurants.contract.customers.DeleteCustomerContract;
+import com.svalero.toprestaurants.presenter.customers.DeleteCustomerPresenter;
 import com.svalero.toprestaurants.view.customers.ModifyCustomerView;
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.domain.Customer;
 
 import java.util.List;
 
-public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerHolder> {
+public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerHolder>
+        implements DeleteCustomerContract.View {
 
     private Context context;
     private List<Customer> customersList;
+    private View snackBarView;
+    private DeleteCustomerPresenter presenter;
 
     public CustomerAdapter(Context context, List<Customer> dataList) {
         this.context = context;
         this.customersList = dataList;
+        presenter = new DeleteCustomerPresenter(this);
     }
 
     @Override
@@ -48,6 +54,18 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         return customersList.size();
     }
 
+    @Override
+    public void showError(String errorMessage) {
+        Snackbar.make(snackBarView, errorMessage,
+                BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(snackBarView, message,
+                BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
     public class CustomerHolder extends RecyclerView.ViewHolder{
 
         public TextView customerName;
@@ -60,6 +78,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         public CustomerHolder(View view) {
             super(view);
             parentView = view;
+            snackBarView = parentView;
 
             customerName = view.findViewById(R.id.customer_name);
             customerSurname = view.findViewById(R.id.customer_surname);
@@ -67,25 +86,25 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             modifyCustomerButton = view.findViewById(R.id.modify_customer_button);
             deleteCustomerButton = view.findViewById(R.id.delete_customer_button);
 
-            customerDetailsButton.setOnClickListener(v -> seeDetails(getAdapterPosition()));
+            //customerDetailsButton.setOnClickListener(v -> seeDetails(getAdapterPosition()));
             modifyCustomerButton.setOnClickListener(v -> modifyCustomer(getAdapterPosition()));
             deleteCustomerButton.setOnClickListener(v -> deleteCustomer(getAdapterPosition()));
         }
     }
 
-    private void seeDetails(int position) {
-        Customer customer = customersList.get(position);
-
-        Intent intent = new Intent(context, CustomerDetailsView.class);
-        intent.putExtra("name", customer.getName());
-        context.startActivity(intent);
-    }
+//    private void seeDetails(int position) {
+//        Customer customer = customersList.get(position);
+//
+//        Intent intent = new Intent(context, CustomerDetailsView.class);
+//        intent.putExtra("name", customer.getName());
+//        context.startActivity(intent);
+//    }
 
     private void modifyCustomer(int position){
         Customer customer = customersList.get(position);
 
         Intent intent = new Intent(context, ModifyCustomerView.class);
-        intent.putExtra("id", customer.getId());
+        intent.putExtra("customer", customer);
         context.startActivity(intent);
     }
 
@@ -94,10 +113,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         builder.setMessage(R.string.sure)
                 .setTitle(R.string.delete_customer)
                 .setPositiveButton(R.string.yes, (dialog, id) -> {
-                    //final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
-                      //      .allowMainThreadQueries().build();
-                    //Customer customer = customersList.get(position);
-                    //db.customerDao().delete(customer);
+                    Customer customer = customersList.get(position);
+                    presenter.deleteCustomer(customer.getId());
 
                     customersList.remove(position);
                     notifyItemRemoved(position);

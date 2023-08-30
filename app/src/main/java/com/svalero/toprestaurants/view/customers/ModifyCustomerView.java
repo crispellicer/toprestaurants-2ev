@@ -4,34 +4,37 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.contract.customers.ModifyCustomerContract;
 import com.svalero.toprestaurants.domain.Customer;
+import com.svalero.toprestaurants.presenter.customers.ModifyCustomerPresenter;
 
-public class ModifyCustomerView extends AppCompatActivity implements ModifyCustomerContract.View {
+public class ModifyCustomerView extends AppCompatActivity
+        implements ModifyCustomerContract.View {
 
     private long id;
+    private Customer customer;
+    private ModifyCustomerPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_customer);
 
-        Intent intent = getIntent();
-        id = intent.getLongExtra("id", 0);
+        noticeId();
 
-        //final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-          //      .allowMainThreadQueries().build();
-        //Customer customer = db.customerDao().getById(id);
-        //fillData(customer);
+        Bundle bundle = getIntent().getExtras();
+        customer = (Customer) bundle.getSerializable("customer");
+        id = customer.getId();
+
+        fillData(customer);
+
+        presenter = new ModifyCustomerPresenter(this);
     }
 
     public void modifyCustomerButton (View view) {
@@ -47,29 +50,26 @@ public class ModifyCustomerView extends AppCompatActivity implements ModifyCusto
         String birthDate = etBirthDate.getText().toString();
         boolean vip = checkVip.isChecked();
 
-        Customer customer = new Customer(id, name, surname, telephone, birthDate, vip);
+        Customer modifiedCustomer = new Customer(id, name, surname, telephone, birthDate, vip);
+        presenter.modifyCustomer(id, modifiedCustomer);
 
-        //final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, DATABASE_NAME)
-          //      .allowMainThreadQueries().build();
+        finish();
+    }
 
-        try {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.sure)
-                    .setTitle(R.string.modify_customer)
-                    .setPositiveButton(R.string.yes, (dialog, id) -> {
+    private void noticeId() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.sure)
+                .setTitle(R.string.modify_customer)
+                .setPositiveButton(R.string.no, (dialog, id) -> {
 
-                        //db.customerDao().update(customer);
+                    Intent intent = new Intent(this, CustomersListView.class);
+                    intent.putExtra("id", customer.getId());
+                    this.startActivity(intent);
+                })
+                .setNegativeButton(R.string.yes, (dialog, id) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
-                        Intent intent = new Intent(this, CustomersListView.class);
-                        intent.putExtra("id", customer.getId());
-                        this.startActivity(intent);
-                    })
-                    .setNegativeButton(R.string.no, (dialog, id) -> dialog.dismiss());
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        } catch (SQLiteConstraintException sce) {
-            Snackbar.make(etName, R.string.error_message, BaseTransientBottomBar.LENGTH_LONG);
-        }
     }
 
     private void fillData(Customer customer) {

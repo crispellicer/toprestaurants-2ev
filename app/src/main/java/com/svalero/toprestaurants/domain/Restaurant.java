@@ -4,29 +4,21 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-public class Restaurant {
-    @PrimaryKey(autoGenerate = true)
+public class Restaurant implements Serializable {
     private long id;
-    @ColumnInfo
     private String name;
-    @ColumnInfo
     private String timetable;
-    @ColumnInfo
     private String type;
-    @ColumnInfo
     private double reservePrice;
-    @ColumnInfo
     private boolean veganMenu;
-    @ColumnInfo
     private String website;
-    @ColumnInfo
     private double longitude;
-    @ColumnInfo
     private double latitude;
 
 

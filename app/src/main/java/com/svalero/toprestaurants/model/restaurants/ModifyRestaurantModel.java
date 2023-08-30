@@ -1,50 +1,45 @@
 package com.svalero.toprestaurants.model.restaurants;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
-import android.util.Log;
 
 import com.svalero.toprestaurants.api.TopRestaurantsApi;
 import com.svalero.toprestaurants.api.TopRestaurantsApiInterface;
-import com.svalero.toprestaurants.contract.restaurants.RegisterRestaurantContract;
+import com.svalero.toprestaurants.contract.customers.ModifyCustomerContract;
+import com.svalero.toprestaurants.contract.restaurants.ModifyRestaurantContract;
 import com.svalero.toprestaurants.domain.Customer;
 import com.svalero.toprestaurants.domain.Restaurant;
+import com.svalero.toprestaurants.presenter.customers.ModifyCustomerPresenter;
+import com.svalero.toprestaurants.presenter.restaurants.ModifyRestaurantPresenter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterRestaurantModel implements RegisterRestaurantContract.Model {
+public class ModifyRestaurantModel implements ModifyRestaurantContract.Model {
 
-    private Context context;
-
-    public RegisterRestaurantModel(Context context) {
-        this.context = context;
-    }
+    private ModifyRestaurantPresenter presenter;
 
     @Override
-    public boolean registerRestaurant(Restaurant restaurant, OnRegisterRestaurantListener listener) {
+    public void modifyRestaurant(long id, Restaurant restaurant, OnModifyRestaurantListener listener) {
+
         try {
             TopRestaurantsApiInterface topRestaurantsApi = TopRestaurantsApi.buildInstance();
-            Call<Restaurant> callRestaurants = topRestaurantsApi.addRestaurant(restaurant);
+            Call<Restaurant> callRestaurants = topRestaurantsApi.modifyRestaurant(id, restaurant);
             callRestaurants.enqueue(new Callback<Restaurant>() {
                 @Override
                 public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                    Restaurant restaurant = response.body();
-                    listener.onRegisterSuccess(restaurant);
-
+                    listener.onModifySuccess(restaurant);
                 }
 
                 @Override
                 public void onFailure(Call<Restaurant> call, Throwable t) {
-                    String message = "Error invocando a la operación";
-                    listener.onRegisterError(message);
+                    t.printStackTrace();
+                    String message = "Error al invocar la operación";
+                    listener.onModifyError(message);
                 }
             });
-            return true;
         } catch (SQLiteConstraintException sce) {
             sce.printStackTrace();
-            return false;
         }
     }
 }

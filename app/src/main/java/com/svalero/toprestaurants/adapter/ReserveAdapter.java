@@ -10,11 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
-import com.svalero.toprestaurants.view.reserves.ModifyReserveActivity;
+import com.svalero.toprestaurants.view.reserves.ModifyReserveView;
 import com.svalero.toprestaurants.R;
-import com.svalero.toprestaurants.view.reserves.ReserveDetailsView;
 import com.svalero.toprestaurants.domain.Reserve;
 
 import java.util.List;
@@ -66,24 +64,24 @@ public class ReserveAdapter extends RecyclerView.Adapter<ReserveAdapter.ReserveH
             modifyReserveButton = view.findViewById(R.id.modify_reserve_button);
             deleteReserveButton = view.findViewById(R.id.delete_reserve_button);
 
-            reserveDetailsButton.setOnClickListener(v -> seeDetails(getAdapterPosition()));
+            //reserveDetailsButton.setOnClickListener(v -> seeDetails(getAdapterPosition()));
             modifyReserveButton.setOnClickListener(v -> modifyReserve(getAdapterPosition()));
             deleteReserveButton.setOnClickListener(v -> deleteReserve(getAdapterPosition()));
         }
     }
 
-    private void seeDetails(int position) {
+    /*private void seeDetails(int position) {
         Reserve reserve = reservesList.get(position);
 
         Intent intent = new Intent(context, ReserveDetailsView.class);
         intent.putExtra("id", reserve.getId());
         context.startActivity(intent);
-    }
+    }*/
 
     private void modifyReserve(int position){
         Reserve reserve = reservesList.get(position);
 
-        Intent intent = new Intent(context, ModifyReserveActivity.class);
+        Intent intent = new Intent(context, ModifyReserveView.class);
         intent.putExtra("id", reserve.getId());
         context.startActivity(intent);
     }

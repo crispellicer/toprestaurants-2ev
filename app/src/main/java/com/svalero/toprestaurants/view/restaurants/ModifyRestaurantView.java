@@ -1,7 +1,6 @@
 package com.svalero.toprestaurants.view.restaurants;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -14,9 +13,11 @@ import android.widget.EditText;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.svalero.toprestaurants.R;
+import com.svalero.toprestaurants.contract.restaurants.ModifyRestaurantContract;
 import com.svalero.toprestaurants.domain.Restaurant;
 
-public class ModifyRestaurantActivity extends AppCompatActivity {
+public class ModifyRestaurantView extends AppCompatActivity
+    implements ModifyRestaurantContract.View{
 
     private long id;
     private double longitude;
@@ -97,5 +98,15 @@ public class ModifyRestaurantActivity extends AppCompatActivity {
 
     public void cancelModifyButton(View view) {
         onBackPressed();
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
     }
 }

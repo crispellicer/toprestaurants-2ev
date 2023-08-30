@@ -10,6 +10,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface TopRestaurantsApiInterface {
@@ -22,10 +23,13 @@ public interface TopRestaurantsApiInterface {
     Call<Customer> getCustomer(@Path("customerId") long customerId);
 
     @POST("customers")
-    Call<Restaurant> addCustomer(@Body Customer customer);
+    Call<Customer> addCustomer(@Body Customer customer);
 
     @DELETE("customers/{customerId}")
     Call<Void> deleteCustomer(@Path("customerId") long customerId);
+
+    @PUT("/customers/{customerId}")
+    Call<Customer> modifyCustomer(@Path("customerId") long id, @Body Customer customer);
 
     //Restaurants
     @GET("restaurants")
@@ -39,4 +43,7 @@ public interface TopRestaurantsApiInterface {
 
     @DELETE("restaurants/{restaurantId}")
     Call<Void> deleteRestaurant(@Path("restaurantId") long restaurantId);
+
+    @PUT("/restaurants/{restaurantId}")
+    Call<Restaurant> modifyRestaurant(@Path("restaurantId") long id, @Body Restaurant restaurant);
 }

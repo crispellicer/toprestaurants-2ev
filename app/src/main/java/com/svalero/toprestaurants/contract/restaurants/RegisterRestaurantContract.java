@@ -1,11 +1,16 @@
 package com.svalero.toprestaurants.contract.restaurants;
 
+import com.svalero.toprestaurants.domain.Customer;
 import com.svalero.toprestaurants.domain.Restaurant;
 
 public interface RegisterRestaurantContract {
 
     interface Model {
-        boolean registerRestaurant(Restaurant restaurant);
+        interface OnRegisterRestaurantListener {
+            void onRegisterSuccess(Restaurant restaurant);
+            void onRegisterError(String message);
+        }
+        boolean registerRestaurant(Restaurant restaurant, OnRegisterRestaurantListener listener);
     }
 
     interface View {

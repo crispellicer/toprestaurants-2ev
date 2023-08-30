@@ -1,7 +1,6 @@
 package com.svalero.toprestaurants.view.reserves;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -16,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.domain.Reserve;
 
-public class ModifyReserveActivity extends AppCompatActivity {
+public class ModifyReserveView extends AppCompatActivity {
 
     private long id;
     private long customerId;

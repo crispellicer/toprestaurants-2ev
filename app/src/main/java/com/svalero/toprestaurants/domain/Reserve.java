@@ -1,27 +1,15 @@
 package com.svalero.toprestaurants.domain;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-
-@Entity
 public class Reserve {
-    @PrimaryKey(autoGenerate = true)
+
     private long id;
-    @ColumnInfo
     private long customerId;
-    @ColumnInfo
     private long restaurantId;
-    @ColumnInfo
     private int people;
-    @ColumnInfo
     private int tables;
-    @ColumnInfo
     private String reserveDate;
-    @ColumnInfo
     private boolean isPaid;
-    @ColumnInfo
     private boolean allergic;
 
     public Reserve(long id, long customerId, long restaurantId, int people, int tables, String reserveDate, boolean isPaid, boolean allergic) {

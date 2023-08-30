@@ -5,7 +5,8 @@ import com.svalero.toprestaurants.domain.Customer;
 import com.svalero.toprestaurants.model.customers.ModifyCustomerModel;
 import com.svalero.toprestaurants.view.customers.ModifyCustomerView;
 
-public class ModifyCustomerPresenter implements ModifyCustomerContract.Presenter, ModifyCustomerContract.Model.OnModifyUserListener {
+public class ModifyCustomerPresenter implements ModifyCustomerContract.Presenter,
+        ModifyCustomerContract.Model.OnModifyCustomerListener {
 
     private ModifyCustomerModel model;
     private ModifyCustomerView view;
@@ -22,11 +23,11 @@ public class ModifyCustomerPresenter implements ModifyCustomerContract.Presenter
 
     @Override
     public void onModifySuccess(Customer customer) {
-        view.showMessage("El cliente se ha modificado correctamente");
+        view.showMessage("The customer has been successfully modified");
     }
 
     @Override
     public void onModifyError(String message) {
-        view.showError("Se ha producido un error al modificar el cliente");
+        view.showError("An error has occurred");
     }
 }

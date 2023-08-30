@@ -11,21 +11,28 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.svalero.toprestaurants.view.restaurants.ModifyRestaurantActivity;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+import com.svalero.toprestaurants.contract.restaurants.DeleteRestaurantContract;
+import com.svalero.toprestaurants.presenter.restaurants.DeleteRestaurantPresenter;
+import com.svalero.toprestaurants.view.restaurants.ModifyRestaurantView;
 import com.svalero.toprestaurants.R;
-import com.svalero.toprestaurants.view.restaurants.RestaurantDetailsView;
 import com.svalero.toprestaurants.domain.Restaurant;
 
 import java.util.List;
 
-public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantHolder> {
+public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantHolder>
+        implements DeleteRestaurantContract.View{
 
     private Context context;
     private List<Restaurant> restaurantsList;
+    private View snackBarView;
+    private DeleteRestaurantPresenter presenter;
 
     public RestaurantAdapter(Context context, List<Restaurant> dataList) {
         this.context = context;
         this.restaurantsList = dataList;
+        presenter = new DeleteRestaurantPresenter(this);
     }
 
     @Override
@@ -46,6 +53,18 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         return restaurantsList.size();
     }
 
+    @Override
+    public void showError(String errorMessage) {
+        Snackbar.make(snackBarView, errorMessage,
+                BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(snackBarView, message,
+                BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
     public class RestaurantHolder extends RecyclerView.ViewHolder{
 
         public TextView restaurantName;
@@ -58,6 +77,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         public RestaurantHolder(View view) {
             super(view);
             parentView = view;
+            snackBarView = parentView;
 
             restaurantName = view.findViewById(R.id.restaurant_name);
             restaurantType = view.findViewById(R.id.restaurant_type);
@@ -65,24 +85,24 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             modifyRestaurantButton = view.findViewById(R.id.modify_restaurant_button);
             deleteRestaurantButton = view.findViewById(R.id.delete_restaurant_button);
 
-            restaurantDetailsButton.setOnClickListener(v -> seeDetails(getAdapterPosition()));
+            //restaurantDetailsButton.setOnClickListener(v -> seeDetails(getAdapterPosition()));
             modifyRestaurantButton.setOnClickListener(v -> modifyRestaurant(getAdapterPosition()));
             deleteRestaurantButton.setOnClickListener(v -> deleteRestaurant(getAdapterPosition()));
         }
     }
 
-    private void seeDetails(int position) {
+    /*private void seeDetails(int position) {
         Restaurant restaurant = restaurantsList.get(position);
 
         Intent intent = new Intent(context, RestaurantDetailsView.class);
         intent.putExtra("name", restaurant.getName());
         context.startActivity(intent);
-    }
+    }*/
 
     private void modifyRestaurant(int position){
         Restaurant restaurant = restaurantsList.get(position);
 
-        Intent intent = new Intent(context, ModifyRestaurantActivity.class);
+        Intent intent = new Intent(context, ModifyRestaurantView.class);
         intent.putExtra("id", restaurant.getId());
         context.startActivity(intent);
     }
@@ -92,10 +112,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         builder.setMessage(R.string.sure)
                 .setTitle(R.string.delete_restaurant)
                 .setPositiveButton(R.string.yes, (dialog, id) -> {
-                    //final AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
-                      //      .allowMainThreadQueries().build();
-                    //Restaurant restaurant = restaurantsList.get(position);
-                    //db.restaurantDao().delete(restaurant);
+                    Restaurant restaurant = restaurantsList.get(position);
+                    presenter.deleteRestaurant(restaurant.getId());
 
                     restaurantsList.remove(position);
                     notifyItemRemoved(position);
