@@ -29,7 +29,7 @@
     <string name="return_button">VOLVER</string>
     <string name="customers">CLIENTES</string>
     <string name="restaurants">RESTAURANTES</string>
-    <string name="reserves">RESERVAS</string>
+    <string name="fav_restaurants">FAVORITOS</string>
     <string name="confirm_button">Confirmar</string>
     <string name="cancel_button">Cancelar</string>
     <string name="how_many_people">¿Cuántas personas?</string>
@@ -47,6 +47,7 @@
     <string name="select_restaurant">Selecciona restaurante</string>
     <string name="people">Personas</string>
     <string name="tables">Mesas</string>
+    <string name="add_fav_restaurant_button">Fav</string>
     <string name="see_details_button">Ver detalles</string>
     <string name="modify_button">Modificar</string>
     <string name="delete_button">Borrar</string>

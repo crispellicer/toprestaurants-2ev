@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.reserves.ReservesListView">
+    tools:context=".view.restaurants.RestaurantsListView">
 
     <TextView
         android:id="@+id/textView"
@@ -12,7 +12,7 @@
         android:layout_height="21dp"
         android:layout_marginTop="12dp"
         android:fontFamily="casual"
-        android:text="@string/reserves"
+        android:text="@string/fav_restaurants"
         android:textAlignment="center"
         android:textColor="#24146A"
         android:textSize="16sp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reserves_list"
+        android:id="@+id/fav_restaurants_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="40dp"

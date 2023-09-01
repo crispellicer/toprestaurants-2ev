@@ -2,21 +2,23 @@ package com.svalero.toprestaurants.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
 import com.svalero.toprestaurants.R;
 import com.svalero.toprestaurants.view.customers.CustomersListView;
-import com.svalero.toprestaurants.view.reserves.ReservesListView;
+import com.svalero.toprestaurants.view.restaurants.FavRestaurantsListView;
 import com.svalero.toprestaurants.view.restaurants.RestaurantsListView;
 
 public class MainActivity extends AppCompatActivity {
 
     Button restaurantsList;
     Button customersList;
-    Button reservesList;
+    Button favRestaurantsList;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        reservesList = findViewById(R.id.reserves_list_button);
-        reservesList.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ReservesListView.class);
+        favRestaurantsList = findViewById(R.id.fav_restaurants_list_button);
+        favRestaurantsList.setOnClickListener(view -> {
+            Intent intent = new Intent(this, FavRestaurantsListView.class);
             startActivity(intent);
         });
     }

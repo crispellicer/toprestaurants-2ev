@@ -33,16 +33,10 @@
             android:name=".view.MapsActivity"
             android:exported="false" />
         <activity
-            android:name=".view.reserves.ModifyReserveView"
-            android:exported="false" />
-        <activity
             android:name=".view.customers.ModifyCustomerView"
             android:exported="false" />
         <activity
             android:name=".view.restaurants.ModifyRestaurantView"
-            android:exported="false" />
-        <activity
-            android:name=".view.reserves.RegisterReserveView"
             android:exported="false" />
         <activity
             android:name=".view.customers.RegisterCustomerView"
@@ -51,13 +45,13 @@
             android:name=".view.restaurants.RegisterRestaurantView"
             android:exported="false" />
         <activity
-            android:name=".view.reserves.ReservesListView"
-            android:exported="false" />
-        <activity
             android:name=".view.customers.CustomersListView"
             android:exported="false" />
         <activity
             android:name=".view.restaurants.RestaurantsListView"
+            android:exported="false" />
+        <activity
+            android:name=".view.restaurants.FavRestaurantsListView"
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"

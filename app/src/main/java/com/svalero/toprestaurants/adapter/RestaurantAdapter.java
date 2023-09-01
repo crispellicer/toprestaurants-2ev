@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.svalero.toprestaurants.contract.restaurants.DeleteRestaurantContract;
+import com.svalero.toprestaurants.domain.FavRestaurant;
+import com.svalero.toprestaurants.presenter.restaurants.AddFavRestaurantPresenter;
 import com.svalero.toprestaurants.presenter.restaurants.DeleteRestaurantPresenter;
 import com.svalero.toprestaurants.view.restaurants.ModifyRestaurantView;
 import com.svalero.toprestaurants.R;
@@ -28,11 +30,17 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     private List<Restaurant> restaurantsList;
     private View snackBarView;
     private DeleteRestaurantPresenter presenter;
+    private AddFavRestaurantPresenter favRestaurantPresenter;
 
     public RestaurantAdapter(Context context, List<Restaurant> dataList) {
         this.context = context;
         this.restaurantsList = dataList;
         presenter = new DeleteRestaurantPresenter(this);
+        favRestaurantPresenter = new AddFavRestaurantPresenter(this);
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     @Override
@@ -69,7 +77,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
         public TextView restaurantName;
         public TextView restaurantType;
-        public Button restaurantDetailsButton;
+        public Button addFavRestaurantButton;
         public Button modifyRestaurantButton;
         public Button deleteRestaurantButton;
         public View parentView;
@@ -81,23 +89,39 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
             restaurantName = view.findViewById(R.id.restaurant_name);
             restaurantType = view.findViewById(R.id.restaurant_type);
-            //restaurantDetailsButton = view.findViewById(R.id.restaurant_details_button);
+            addFavRestaurantButton = view.findViewById(R.id.add_fav_restaurant_button);
             modifyRestaurantButton = view.findViewById(R.id.modify_restaurant_button);
             deleteRestaurantButton = view.findViewById(R.id.delete_restaurant_button);
 
-            //restaurantDetailsButton.setOnClickListener(v -> seeDetails(getAdapterPosition()));
+            addFavRestaurantButton.setOnClickListener(v -> addFavRestaurant(getAdapterPosition()));
             modifyRestaurantButton.setOnClickListener(v -> modifyRestaurant(getAdapterPosition()));
             deleteRestaurantButton.setOnClickListener(v -> deleteRestaurant(getAdapterPosition()));
         }
     }
 
-    /*private void seeDetails(int position) {
-        Restaurant restaurant = restaurantsList.get(position);
+    private void addFavRestaurant(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Do you wnat to add to favourites?")
+                .setTitle("Add to Favourites")
+                .setPositiveButton("Yes", (dialog, id) -> {
+                    Restaurant restaurant = restaurantsList.get(position);
 
-        Intent intent = new Intent(context, RestaurantDetailsView.class);
-        intent.putExtra("name", restaurant.getName());
-        context.startActivity(intent);
-    }*/
+                    FavRestaurant favRestaurant = new FavRestaurant();
+                    favRestaurant.setName(restaurant.getName());
+                    favRestaurant.setTimetable(restaurant.getTimetable());
+                    favRestaurant.setType(restaurant.getType());
+                    favRestaurant.setReservePrice(restaurant.getReservePrice());
+                    favRestaurant.setVeganMenu(restaurant.isVeganMenu());
+                    favRestaurant.setWebsite(restaurant.getWebsite());
+                    favRestaurant.setLongitude(restaurant.getLongitude());
+                    favRestaurant.setLatitude(restaurant.getLatitude());
+
+                    favRestaurantPresenter.addFavRestaurant(favRestaurant);
+                })
+                .setNegativeButton("No", (dialog, id) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
     private void modifyRestaurant(int position){
         Restaurant restaurant = restaurantsList.get(position);
