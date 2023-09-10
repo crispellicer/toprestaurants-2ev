@@ -30,8 +30,8 @@
     <string name="customers">CLIENTES</string>
     <string name="restaurants">RESTAURANTES</string>
     <string name="fav_restaurants">FAVORITOS</string>
-    <string name="confirm_button">Confirmar</string>
-    <string name="cancel_button">Cancelar</string>
+    <string name="confirm_button">CONFIRMAR</string>
+    <string name="cancel_button">CANCELAR</string>
     <string name="how_many_people">¿Cuántas personas?</string>
     <string name="how_many_tables">¿Cuántas mesas?</string>
     <string name="reserve_date">Fecha de la reserva</string>
@@ -42,13 +42,12 @@
     <string name="reserve_price">Precio de la reserva</string>
     <string name="vegan_menu">Menú vegano</string>
     <string name="website">Página web</string>
-    <string name="save_button">Guardar</string>
+    <string name="save_button">GUARDAR</string>
     <string name="select_customer">Selecciona cliente</string>
     <string name="select_restaurant">Selecciona restaurante</string>
     <string name="people">Personas</string>
     <string name="tables">Mesas</string>
-    <string name="add_fav_restaurant_button">Fav</string>
-    <string name="see_details_button">Ver detalles</string>
-    <string name="modify_button">Modificar</string>
-    <string name="delete_button">Borrar</string>
+    <string name="add_fav_restaurant_button">FAV</string>
+    <string name="modify_button">MODIFICAR</string>
+    <string name="delete_button">BORRAR</string>
 </resources>

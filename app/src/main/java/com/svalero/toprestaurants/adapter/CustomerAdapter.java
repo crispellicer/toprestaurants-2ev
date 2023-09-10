@@ -82,7 +82,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
             customerName = view.findViewById(R.id.customer_name);
             customerSurname = view.findViewById(R.id.customer_surname);
-            customerDetailsButton = view.findViewById(R.id.customer_details_button);
+            //customerDetailsButton = view.findViewById(R.id.customer_details_button);
             modifyCustomerButton = view.findViewById(R.id.modify_customer_button);
             deleteCustomerButton = view.findViewById(R.id.delete_customer_button);
 
