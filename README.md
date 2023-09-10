@@ -11,3 +11,4 @@ Durante el desarrollo de la aplicación, se han llevado a cabo las siguientes fu
 - [x] El usuario podrá almacenar como “favorito” aquella información de la API que le resulte de interés.
 - [x] Utiliza la herramienta Git (y GitHub) durante todo el desarrollo de la aplicación. Utiliza el gestor de Issues para los problemas/fallos que vayan surgiendo.
 - [x] Hacer uso de mapas en las pantalla donde se registre información. Para indicar información geográfica, por ejemplo.
+- [x] Utilizar Material Design para personalizar el diseño de la aplicación.
